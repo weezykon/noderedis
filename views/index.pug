@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+  include common/head.pug
+  +head('Node')
+  body
+    header
+      .container
+        h1= title
+        button(onclick='clickme()') Click me
+        div.container.hidden#clubsSection
+          if clubs
+            h2 
+            for club in clubs
+              h4.text-center.text-muted.text-uppercase.text-info #{club.name}
+              p.text-center.text-muted.text-primary #{club.country}
+        
+    script.
+      function clickme() {
+        let clubDiv = document.querySelector("#clubsSection");
+        if (clubDiv.classList.contains("hidden")) {
+          clubDiv.classList.remove("hidden");
+        } else {
+          clubDiv.classList.add("hidden");
+        }
+      }            
