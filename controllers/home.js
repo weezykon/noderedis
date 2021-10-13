@@ -13,9 +13,10 @@ const client = redis.createClient(process.env.REDIS_URL, {
 });
 
 exports.home = async (req, res, next) => {
-    const { clubs } = await getClubs();
+    // const { clubs } = await getClubs();
     // console.log(clubs);
-    res.render('index', { title: 'Redis Second League Clubs', clubs });
+    // res.render('index', { title: 'Redis Second League Clubs', clubs });
+    res.render('index', { title: 'Redis Second League Clubs', clubs: [] });
 };
 
 const getClubs = () => {
