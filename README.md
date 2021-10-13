@@ -15,8 +15,6 @@ git clone https://github.com/weezykon/noderedis.git
 cd noderedis
 ```
 
-Or [download as a ZIP](https://github.com/weezykon/Nodejs-Express-Mongodb-template/archive/main.zip).
-
 #### 3. Install packages
 
 ```
