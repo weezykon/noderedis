@@ -16,6 +16,7 @@ html(lang='en')
         
     script.
       function clickme() {
+        console.log('clicked')
         let clubDiv = document.querySelector("#clubsSection");
         if (clubDiv.classList.contains("hidden")) {
           clubDiv.classList.remove("hidden");

@@ -1,6 +1,9 @@
 // import redis
 const redis = require('redis');
 
+// json
+const club = require('./../club.json');
+
 // dotenv
 const dotenv = require('dotenv');
 dotenv.config();
@@ -13,10 +16,24 @@ const client = redis.createClient(process.env.REDIS_URL, {
 });
 
 exports.home = async (req, res, next) => {
-    // const { clubs } = await getClubs();
-    // console.log(clubs);
-    // res.render('index', { title: 'Redis Second League Clubs', clubs });
-    res.render('index', { title: 'Redis Second League Clubs', clubs: [] });
+    const searchTerm = req.query.search;
+    try {
+        client.get('clubs', async (err, reply) => {
+            if (err) throw err;
+    
+            if (reply) {
+                const { clubs } = JSON.parse(reply);
+                res.render('index', { title: 'Redis Second League Clubs', clubs });
+            }
+            else {
+                client.set('clubs', JSON.stringify(club));
+                console.log('clubs set');
+                res.render('index', { title: 'Redis Second League Clubs', clubs: club.clubs });
+            }
+        });
+    } catch(err) {
+        console.log(err.message);
+    }
 };
 
 const getClubs = () => {
