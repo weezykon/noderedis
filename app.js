@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const club = require('./club.json');
 
 // redis client
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 
 // urlencoded
 app.use(express.urlencoded({ extended: true }));

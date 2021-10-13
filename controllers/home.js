@@ -2,7 +2,7 @@
 const redis = require('redis');
 
 // redis client
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 
 exports.home = async (req, res, next) => {
     const { clubs } = await getClubs();
