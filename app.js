@@ -5,6 +5,10 @@ const pug = require('pug');
 const path = require('path');
 const app = express();
 
+// dotenv
+const dotenv = require('dotenv');
+dotenv.config();
+
 // routers
 const indexRouter = require('./routes/index');
 
@@ -20,7 +24,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 const club = require('./club.json');
 
 // redis client
-const client = redis.createClient(process.env.REDIS_URL);
+const client = redis.createClient(process.env.REDIS_URL, {
+    tls: {
+        rejectUnauthorized: false
+    }
+});
 
 // urlencoded
 app.use(express.urlencoded({ extended: true }));
