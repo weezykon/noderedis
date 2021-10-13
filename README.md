@@ -21,13 +21,6 @@ cd noderedis
 npm install
 ```
 
-
-#### 4. Start Redis
-
-```
-brew services start redis
-```
-
 ## Footnotes
 
 - Created by [Weezykon](https://twitter.com/weezykon)
