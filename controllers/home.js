@@ -17,7 +17,7 @@ const client = redis.createClient(process.env.REDIS_URL, {
 
 exports.home = async (req, res, next) => {
     try {
-        client.get('clubs', async (err, reply) => {
+        await client.get('clubs', async (err, reply) => {
             if (err) throw err;
     
             if (reply) {

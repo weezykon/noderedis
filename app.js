@@ -34,13 +34,13 @@ const client = redis.createClient(process.env.REDIS_URL, {
 app.use(express.urlencoded({ extended: true }));
 
 // save data to redis
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
     try {
         client.get('clubs', async (err, reply) => {
             if (err) throw err;
     
             if (reply === null) {
-                client.set('clubs', JSON.stringify(club));
+                await client.set('clubs', JSON.stringify(club));
             }
         });
         next();
