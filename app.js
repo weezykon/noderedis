@@ -1,13 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const redis = require('redis');
 const pug = require('pug');
 const path = require('path');
+const { saveData } = require('./components/redisComponent');
 const app = express();
-
-// dotenv
-const dotenv = require('dotenv');
-dotenv.config();
 
 // routers
 const indexRouter = require('./routes/index');
@@ -23,29 +19,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 // json
 const club = require('./club.json');
 
-// redis client
-const client = redis.createClient(process.env.REDIS_URL, {
-    tls: {
-        rejectUnauthorized: false
-    }
-});
-
 // urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 // save data to redis
 app.use(async (req, res, next) => {
     try {
-        client.get('clubs', async (err, reply) => {
-            if (err) throw err;
-    
-            if (reply === null) {
-                await client.set('clubs', JSON.stringify(club));
-            }
-        });
+        await saveData(club);
         next();
-    } catch(err) {
-        console.log(err.message);
+    } catch (error) {
+        console.log(error);
     }
 })
 
